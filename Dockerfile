@@ -16,10 +16,8 @@ RUN curl -sS https://getcomposer.org/installer | php \
 
 RUN composer install --no-dev --optimize-autoloader
 
-RUN touch database/database.sqlite
-
-RUN chown -R www-data:www-data storage bootstrap/cache database
-
-RUN php artisan migrate --force
+RUN chown -R www-data:www-data storage bootstrap/cache
 
 EXPOSE 80
+
+CMD php artisan migrate --force && apache2-foreground
